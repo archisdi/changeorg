@@ -8,6 +8,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Hello World !!!</h2>
+<h2>{{$title}}</h2>
+
+<hr>
+
+<ul>
+    @foreach($body as $mentor)
+        <li>{{$mentor}}</li>
+    @endforeach
+</ul>
+
 </body>
 </html>

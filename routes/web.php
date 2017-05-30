@@ -11,14 +11,32 @@
 |
 */
 
+use Illuminate\Support\Facades\DB;
+use App\Petition;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hello',function (){
-    return view('home');
+Route::get('home',function (){
+
+    $title = 'Our Mentors';
+
+    $body = ['Edwina','Annisa','Faisal','Septian','Isa'];
+
+    return view('home',compact('title','body'));
+
 });
 
-Route::get('hello/{name}',function ($nama){
+Route::get('hello/{nama}',function ($nama){
     return 'Hello '. $nama;
 });
+
+///
+///
+///
+
+
+Route::get('petitions','PetitionController@index');
+
+Route::get('petitions/{id}','PetitionController@show');
