@@ -38,5 +38,12 @@ Route::get('hello/{nama}',function ($nama){
 
 
 Route::get('petitions','PetitionController@index');
-
+Route::get('petitions/create','PetitionController@create');
 Route::get('petitions/{id}','PetitionController@show');
+
+Route::post('petitions','PetitionController@store');
+
+
+Route::get('test',function (){
+   return view('layout.app');
+});

@@ -9,31 +9,41 @@ class PetitionController extends Controller
 {
     public function index(){
         $petitions = Petition::all();
-        return $petitions;
+        return view('petition.index',compact('petitions'));
     }
 
     public function show($id){
-        $petitions = Petition::find($id);
-        return $petitions;
+        $petition = Petition::find($id);
+        return view('petition.show',compact('petition'));
     }
 
-//    public function create(){
-//
-//    }
-//
-//    public function store(){
-//
-//    }
-//
-//    public function edit(){
-//
-//    }
-//
-//    public function update(){
-//
-//    }
-//
-//    public function destroy(){
-//
-//    }
+
+    public function create(){
+        return view('petition.create');
+    }
+
+    public function store(Request $request){
+        $input =  $request->input();
+
+        $petition = New Petition($input);
+
+        $petition->save();
+
+        return redirect(url('petitions'));
+    }
+
+
+    public function edit(){
+
+    }
+
+    public function update(){
+
+    }
+
+
+
+    public function destroy(){
+
+    }
 }
