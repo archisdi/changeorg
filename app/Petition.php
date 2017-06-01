@@ -10,7 +10,8 @@ class Petition extends Model
 
     protected $fillable = ['title','body'];
 
-    public function when(){
-        return $this->created_at->diffForHumans();
+    // -- Relationship to comments
+    public function comments(){
+        return $this->HasMany(Comment::class);
     }
 }

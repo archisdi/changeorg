@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PetitionRequest;
 use App\Petition;
 use Illuminate\Http\Request;
@@ -50,7 +52,21 @@ class PetitionController extends Controller
         return redirect(url('petitions/'.$id));
     }
 
-    public function destroy(){
+    public function destroy($id){
+        $petition = Petition::find($id);
 
+        $petition->delete();
+
+        return redirect(url('petitions'));
+    }
+
+    public function storeComment(CommentRequest $request, $id){
+        $petition = Petition::find($id);
+
+        $comment = New Comment($request->input());
+
+        $petition->comments()->save($comment);
+
+        return redirect(url('petitions/'.$id));
     }
 }

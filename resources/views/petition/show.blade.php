@@ -18,30 +18,31 @@
                     <p>{{$petition->body}}</p>
                 </div>
 
-                <div class="box-footer box-comments">
+                @foreach($petition->comments as $comment)
+                    <div class="box-footer box-comments">
 
-                    <div class="box-comment">
+                        <div class="box-comment">
 
-                        <img class="img-circle img-sm" src="https://dimg.voot.com/include/user-images/blank-user.jpg"
-                             alt="User Image">
+                            <img class="img-circle img-sm" src="https://dimg.voot.com/include/user-images/blank-user.jpg"
+                                 alt="User Image">
 
-                        <div class="comment-text">
+                            <div class="comment-text">
                       <span class="username"> Anonymous
-                        <span class="text-muted pull-right">8:03 PM Today</span>
+                        <span class="text-muted pull-right">{{$comment->created_at->diffForHumans()}}</span>
                       </span>
+                                {{$comment->body}}
+                            </div>
 
-                            It is a long established fact that a reader will be distracted
-                            by the readable content of a page when looking at its layout.
                         </div>
 
                     </div>
-
-                </div>
+                @endforeach
 
                 <div class="box-footer">
-                    <form action="#" method="post">
+                    <form action="{{url('petitions/'.$petition->id.'/comment')}}" method="post">
+                        {{csrf_field()}}
                         <div class="img-push">
-                            <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+                            <input type="text" class="form-control input-sm" placeholder="Press enter to post comment" name="body">
                         </div>
                     </form>
                 </div>
@@ -51,7 +52,9 @@
             <div class="pull-right">
                 <div class="btn-group">
                     <a href="{{url('petitions/'.$petition->id.'/edit')}}" class="btn btn-warning">Edit</a>
-                    <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-petition').submit()">Delete</button>
+                    <button type="button" class="btn btn-danger"
+                            onclick="event.preventDefault(); document.getElementById('delete-petition').submit()">Delete
+                    </button>
                 </div>
             </div>
 

@@ -51,4 +51,7 @@ Route::delete('petitions/{id}','PetitionController@destroy');
 // -- Show specific petition data
 Route::get('petitions/{id}','PetitionController@show');
 
+// -- Store comment to petition
+Route::post('petitions/{id}/comment','PetitionController@storeComment');
+
 
