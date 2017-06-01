@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PetitionRequest;
 use App\Petition;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class PetitionController extends Controller
         return view('petition.create');
     }
 
-    public function store(Request $request){
+    public function store(PetitionRequest $request){
+
         $input =  $request->input();
 
         $petition = New Petition($input);
@@ -33,15 +35,20 @@ class PetitionController extends Controller
     }
 
 
-    public function edit(){
-
+    public function edit($id){
+        $petition = Petition::find($id);
+        return view('petition.edit',compact('petition'));
     }
 
-    public function update(){
+    public function update(PetitionRequest $request, $id){
+        $petition = Petition::find($id);
 
+        $input =  $request->input();
+
+        $petition->update($input);
+
+        return redirect(url('petitions/'.$id));
     }
-
-
 
     public function destroy(){
 

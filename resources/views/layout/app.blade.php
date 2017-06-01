@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/css/skins/_all-skins.css"> <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="icon" href="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/comment512x512.png">
+    @yield('ext_header')
 </head>
 <!-- ////////////////// -->
 
@@ -26,7 +27,7 @@
             <div class="container">
 
                 <div class="navbar-header">
-                    <a href="#" class="navbar-brand"><b>Change</b>.org</a>
+                    <a href="{{url('/')}}" class="navbar-brand"><b>Change</b>.org</a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
@@ -38,7 +39,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Petitions <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">All Petition</a></li>
+                                <li><a href="{{url('petitions')}}">All Petition</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">My Petition</a></li>
                             </ul>

@@ -32,18 +32,23 @@ Route::get('hello/{nama}',function ($nama){
     return 'Hello '. $nama;
 });
 
-///
-///
-///
+/// --- CRUD Petition ---- ///
 
-
+// -- Show all petition data
 Route::get('petitions','PetitionController@index');
-Route::get('petitions/create','PetitionController@create');
-Route::get('petitions/{id}','PetitionController@show');
 
+// -- Create a new petition
+Route::get('petitions/create','PetitionController@create');
 Route::post('petitions','PetitionController@store');
 
+// -- Update exsisting petition data
+Route::get('petitions/{id}/edit','PetitionController@edit');
+Route::put('petitions/{id}','PetitionController@update');
 
-Route::get('test',function (){
-   return view('layout.app');
-});
+// -- Delete existing petition data
+Route::delete('petitions/{id}','PetitionController@destroy');
+
+// -- Show specific petition data
+Route::get('petitions/{id}','PetitionController@show');
+
+

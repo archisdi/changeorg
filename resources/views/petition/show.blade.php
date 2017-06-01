@@ -50,10 +50,15 @@
 
             <div class="pull-right">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-warning">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <a href="{{url('petitions/'.$petition->id.'/edit')}}" class="btn btn-warning">Edit</a>
+                    <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-petition').submit()">Delete</button>
                 </div>
             </div>
+
+            <form id="delete-petition" method="post" action="{{url('petitions/'.$petition->id)}}">
+                {{csrf_field()}}
+                {{method_field('delete')}}
+            </form>
 
             <a class="btn btn-default" href="{{url('petitions')}}">Back</a>
         </div>
