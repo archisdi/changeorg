@@ -29,7 +29,7 @@
 
                             <div class="comment-text">
                       <span class="username"> {{$comment->user->name}}
-                        <span class="text-muted pull-right">{{$comment->created_at->diffForHumans()}}</span>
+                          <span class="text-muted pull-right">{{$comment->created_at->diffForHumans()}}</span>
                       </span>
                                 {{$comment->body}}
                             </div>
@@ -39,28 +39,33 @@
                     </div>
                 @endforeach
 
-                <div class="box-footer">
-                    <form action="{{url('petitions/'.$petition->id.'/comment')}}" method="post">
-                        {{csrf_field()}}
-                        <div class="img-push">
-                            <input type="text" class="form-control input-sm" placeholder="Press enter to post comment"
-                                   name="body">
-                        </div>
-                    </form>
-                </div>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <div class="box-footer">
+                        <form action="{{url('petitions/'.$petition->id.'/comment')}}" method="post">
+                            {{csrf_field()}}
+                            <div class="img-push">
+                                <input type="text" class="form-control input-sm"
+                                       placeholder="Press enter to post comment"
+                                       name="body">
+                            </div>
+                        </form>
+                    </div>
+                @endif
 
             </div>
 
-            @if(\Illuminate\Support\Facades\Auth::user()->id == $petition->id)
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <a href="{{url('petitions/'.$petition->id.'/edit')}}" class="btn btn-warning">Edit</a>
-                        <button type="button" class="btn btn-danger"
-                                onclick="event.preventDefault(); document.getElementById('delete-petition').submit()">
-                            Delete
-                        </button>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                @if(\Illuminate\Support\Facades\Auth::user()->id == $petition->id)
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <a href="{{url('petitions/'.$petition->id.'/edit')}}" class="btn btn-warning">Edit</a>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="event.preventDefault(); document.getElementById('delete-petition').submit()">
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                </div>
+                @endif
             @endif
 
             <form id="delete-petition" method="post" action="{{url('petitions/'.$petition->id)}}">
