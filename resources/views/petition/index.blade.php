@@ -23,9 +23,11 @@
                     </div>
                 </div>
             @endforeach
-
+            {{$petitions->links()}}
             <hr>
-            <a href="{{url('petitions/create')}}" class="btn btn-success btn-block">Create Petition</a>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <a href="{{url('petitions/create')}}" class="btn btn-success btn-block">Create Petition</a>
+            @endif
         </div>
     </div>
 

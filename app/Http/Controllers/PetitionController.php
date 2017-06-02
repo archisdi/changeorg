@@ -7,11 +7,17 @@ use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PetitionRequest;
 use App\Petition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PetitionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
+
     public function index(){
-        $petitions = Petition::all();
+        $petitions = Petition::paginate(5);
         return view('petition.index',compact('petitions'));
     }
 
@@ -31,19 +37,19 @@ class PetitionController extends Controller
 
         $petition = New Petition($input);
 
-        $petition->save();
+        Auth::user()->petitions()->save($petition);
 
         return redirect(url('petitions'));
     }
 
 
     public function edit($id){
-        $petition = Petition::find($id);
+        $petition = Auth::user()->petitions->where('id',$id)->first();
         return view('petition.edit',compact('petition'));
     }
 
     public function update(PetitionRequest $request, $id){
-        $petition = Petition::find($id);
+        $petition = Auth::user()->petitions->where('id',$id)->first();
 
         $input =  $request->input();
 
@@ -53,7 +59,7 @@ class PetitionController extends Controller
     }
 
     public function destroy($id){
-        $petition = Petition::find($id);
+        $petition = Auth::user()->petitions->where('id',$id)->first();
 
         $petition->delete();
 
@@ -64,6 +70,8 @@ class PetitionController extends Controller
         $petition = Petition::find($id);
 
         $comment = New Comment($request->input());
+
+        $comment['user_id'] = Auth::user()->id;
 
         $petition->comments()->save($comment);
 

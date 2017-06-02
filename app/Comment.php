@@ -12,6 +12,10 @@ class Comment extends Model
 
     // -- Relationship to petition
     public function petition(){
-        return $this->HasMany(Petition::class);
+        return $this->BelongsTo(Petition::class);
+    }
+
+    public function user(){
+        return $this->BelongsTo(User::class);
     }
 }

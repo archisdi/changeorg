@@ -11,22 +11,12 @@
 |
 */
 
-use Illuminate\Support\Facades\DB;
-use App\Petition;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('home',function (){
-
-    $title = 'Our Mentors';
-
-    $body = ['Edwina','Annisa','Faisal','Septian','Isa'];
-
-    return view('home',compact('title','body'));
-
-});
 
 Route::get('hello/{nama}',function ($nama){
     return 'Hello '. $nama;
@@ -55,3 +45,12 @@ Route::get('petitions/{id}','PetitionController@show');
 Route::post('petitions/{id}/comment','PetitionController@storeComment');
 
 
+// -- Auth
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('mypetitions',function (){
+   return Auth::user()->petitions;
+})->middleware('auth');

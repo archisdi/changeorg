@@ -14,4 +14,9 @@ class Petition extends Model
     public function comments(){
         return $this->HasMany(Comment::class);
     }
+
+    // -- Relationship to user
+    public function user(){
+        return $this->BelongsTo(User::class);
+    }
 }
